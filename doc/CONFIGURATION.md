@@ -77,7 +77,7 @@ check will be executed before restarting, should you use the `restart`
 option of the start script.
 
 After executing an on-line reconfiguration you should always check the log
-file for any errors or suspicious things happening after the reload. 
+file for any errors or suspicious things happening after the reload.
 Strange things may happen and the pre-flight check might not catch all
 errors in the configuration.
 
@@ -104,12 +104,12 @@ Configuration file options in aprsc.conf
 ### Basic server options ###
 
  *  ServerId NOCALL
-    
+
     This is your unique server ID. Typically contains a callsign and
     an SSID.
 
  *  PassCode 0
-    
+
     This is the passcode for your server ID. It is required if your server
     connects to upstream servers (Uplink configuration, see below).
 
@@ -118,7 +118,7 @@ Configuration file options in aprsc.conf
     Your name and callsign.
 
  *  MyEmail email@example.com
-    
+
     This is an email address where you, the server operator, can be
     contacted. It is not displayed on the status web page, but it goes to
     the machine-readable status.json file, so persons skilled in the art
@@ -156,7 +156,7 @@ And here are the contestants:
 
     When no data is received from an upstream server in N seconds,
     disconnect and switch to another server.
-     
+
  *  ClientTimeout 48h
 
     When no data is received from a downstream client in N seconds,
@@ -174,27 +174,27 @@ The basic syntax is:
     it if it contains spaces ("Full feed").
 
  *  porttype: one of:
- 
+
     - fullfeed - everything, after dupe filtering
     - igate - igate / client port with user-specified or fixed filters
     - udpsubmit - UDP packet submission port (8080)
     - dupefeed - duplicate packets dropped by the server
- 
+
  *  protocol: either tcp or udp
- 
+
  *  address: the local address to listen on. "::" for IPv6 `IN6ADDR_ANY`
     (all local IPv6 addresses), "0.0.0.0" for IPv4 `INADDR_ANY` (all local
     IPv4 addresses).  On Linux and Solaris, just put "::" here and it will
-    handle both IPv6 and IPv4 connections with a single configuration line! 
+    handle both IPv6 and IPv4 connections with a single configuration line!
     On FreeBSD and Windows, separate IPv4 and IPv6 listeners are needed.
-    
+
  *  port: the local TCP or UDP port to listen on. Must be larger than 1023.
     aprsc drops root privileges quickly after startup (if it has them), and
     cannot bind privileged ports. If you need to support a low port such as
     23, see [TIPS](TIPS.html): "Providing access on low TCP ports"
 
  *  options: one more of:
- 
+
     - filter "m/500 t/m" - force a filter for users connected here.
       If you wish to specify multiple filters, put them in the same "string",
       separated by spaces. The filter option only works with the igate port
@@ -223,12 +223,13 @@ IPv4 and IPv6:
 
 ### Uplink configuration ###
 
-Uplink name type tcp address port
+Uplink name type tcp address port \[server command\]
 
  *  name: a name of the server or service you're connecting to
  *  type: one of:
     - full - send a full feed to upstream
     - ro   - read-only, do not transmit anything upstream
+  * server command: an optional command to send to the server
 
 If you wish to specify multiple alternative servers, use multiple Uplink
 lines, one for each server. aprsc will automatically maintain a connection
@@ -241,6 +242,11 @@ the first one become unavailable.
 Here's a good configuration for connecting to the APRS-IS core:
 
     Uplink "Core rotate" full  tcp  rotate.aprs.net 10152
+
+The server command argument is typically used when connecting to a server filter
+port (14580 by default). In that case a command might look like
+
+    Uplink "Core filter" full tcp rotate.aprs.net 14580 filter r/33.25/-96.5/50
 
 
 ### Binding source address when connecting upstream (optional) ###
@@ -306,7 +312,7 @@ within HTML page.
 
 The following options allow the server operator to reject logins and packets
 from specific callsigns.  Both options support 'glob' type wildcards ('*'
-matches 0 or more any characters, '?' matches exactly one any character). 
+matches 0 or more any characters, '?' matches exactly one any character).
 The examples below are examples only - there is currently, by default, no need
 to have the example callsigns blocked.
 
@@ -377,7 +383,7 @@ The first two following lines deny the `dead:beef:f00d::/48` subnet, and then al
     deny  192.168.1.0/24
     allow 192.168.0.0/16
     allow 10.52.42.3
-  
+
 If prefix length is not specified, a host rule is created (32 bits for IPv4,
 128 bits prefix length for IPv6). To configure a rule that matches all
 addresses you should specify a prefix length of 0 (::/0 for IPv6, 0.0.0.0/0
@@ -387,7 +393,7 @@ If you want to specify an ACL file and allow any connection, you can use followi
 
     allow 0.0.0.0/0
     allow ::/0
-  
+
 ACL files are read and parsed when aprsc starts or reconfigures itself, so
 you need to do a configuration reload (on-line reconfiguration) after
 changing the contents of an ACL file.
@@ -425,7 +431,7 @@ you can paste these as-is to motd.html (without any other extra tags around
 them - no `html` or `body` tags needed):
 
     <div class='row'>
-    
+
     <div class="col-md-6 col-sm-12">
     <h4 class="text-info">Maintenance coming</h4>
     <p class="text-info">
@@ -433,12 +439,12 @@ them - no `html` or `body` tags needed):
     Coloured accordingly.
     </p>
     </div>
-    
+
     <div class="col-md-6 col-sm-12">
     <h4 class="text-success">Good news everyone!</h4>
     <p>This server has been upgraded to aprsc 2.1.</p>
     </div>
-    
+
     <div class="col-md-6 col-sm-12">
     <h4 class="text-danger">Oops!</h4>
     <p class="text-danger">
@@ -446,7 +452,7 @@ them - no `html` or `body` tags needed):
     The outage is reported here with red text.
     </p>
     </div>
-    
+
     </div><!-- closing row -->
 
 Make sure your message is correctly HTML formatted and all tags are closed

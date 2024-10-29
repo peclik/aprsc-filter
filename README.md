@@ -2,8 +2,14 @@
 aprsc - an APRS-IS server in C
 ==============================
 
-![Build Status](https://github.com/hessu/aprsc/actions/workflows/tests.yml/badge.svg)
+## Changes to the original (he.fi) aprsc version:
 
+* Possibility to use filters even for uplink connections
+
+## Info
+
+Automatic build and test result:
+[![build](https://github.com/peclik/aprsc-filter/actions/workflows/release.yml/badge.svg)](https://github.com/peclik/aprsc-filter/actions/workflows/release.yml)
 
 You're looking at the source code of aprsc, an open-source APRS-IS
 server.

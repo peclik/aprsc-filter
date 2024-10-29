@@ -4,7 +4,7 @@ aprsc - an APRS-IS server in C
 
 ## Changes to the original (he.fi) aprsc version:
 
-* Possibility to use filters even for uplink connections
+* Possibility to use filters even for uplink connections (credit to [dgentges](https://github.com/dgentges/aprsc))
 
 ## Info
 
